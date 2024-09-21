@@ -51,4 +51,26 @@ public class PhoneBookTest {
         List<String> byNumber = phoneBook.findByNumber(RandomStringUtils.randomNumeric(8));
         assertThat(byNumber.size()).isEqualTo(0);
     }
+
+    @Test
+    public void findByName_success()
+    {
+        PhoneBook phoneBook = new PhoneBook();
+        String name = RandomStringUtils.random(5);
+        String number = RandomStringUtils.randomNumeric(8);
+        phoneBook.add(name, number);
+        String byName = phoneBook.findByName(name);
+        assertThat(byName).isEqualTo(number);
+    }
+
+    @Test
+    public void findBy_NotExistingName_fail()
+    {
+        PhoneBook phoneBook = new PhoneBook();
+        String name = RandomStringUtils.random(5);
+        String number = RandomStringUtils.randomNumeric(8);
+        phoneBook.add(name, number);
+        String byName = phoneBook.findByName(RandomStringUtils.random(5));
+        assertThat(byName).isNull();
+    }
 }

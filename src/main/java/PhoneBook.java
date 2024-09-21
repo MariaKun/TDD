@@ -19,4 +19,9 @@ public class PhoneBook {
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
+
+    public String findByName(String name)
+    {
+        return null;
+    }
 }
