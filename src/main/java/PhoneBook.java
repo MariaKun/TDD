@@ -27,6 +27,6 @@ public class PhoneBook {
 
     public void printAllNames()
     {
-
+        phoneBook.forEach((key, value) -> System.out.println(key));
     }
 }
