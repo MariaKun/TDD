@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PhoneBookTest {
 
     @Test
-    public void addNewContact_success()
+    public void add_NewContact_success()
     {
         PhoneBook phoneBook = new PhoneBook();
         String name = RandomStringUtils.random(5);
@@ -18,7 +18,7 @@ public class PhoneBookTest {
     }
 
     @Test
-    public void addExistingContact_fail()
+    public void add_existingContact_fail()
     {
         PhoneBook phoneBook = new PhoneBook();
         String name = RandomStringUtils.random(5);
@@ -39,5 +39,16 @@ public class PhoneBookTest {
         List<String> byNumber = phoneBook.findByNumber(number);
         assertThat(byNumber.size()).isEqualTo(1);
         assertThat(byNumber.getFirst()).isEqualTo(name);
+    }
+
+    @Test
+    public void findBy_notExistingNumber_fail()
+    {
+        PhoneBook phoneBook = new PhoneBook();
+        String name = RandomStringUtils.random(5);
+        String number = RandomStringUtils.randomNumeric(8);
+        phoneBook.add(name, number);
+        List<String> byNumber = phoneBook.findByNumber(RandomStringUtils.randomNumeric(8));
+        assertThat(byNumber.size()).isEqualTo(0);
     }
 }

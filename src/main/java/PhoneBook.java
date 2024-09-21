@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PhoneBook {
 
@@ -11,6 +12,11 @@ public class PhoneBook {
 
     public List<String> findByNumber(String number)
     {
-        return null;
+        return phoneBook
+                .entrySet()
+                .stream()
+                .filter(entry -> Objects.equals(entry.getValue(), number))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 }
