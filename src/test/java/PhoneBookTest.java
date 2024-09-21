@@ -1,6 +1,8 @@
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,5 +74,29 @@ public class PhoneBookTest {
         phoneBook.add(name, number);
         String byName = phoneBook.findByName(RandomStringUtils.random(5));
         assertThat(byName).isNull();
+    }
+
+    @Test
+    public void printAllNames_success()
+    {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        PhoneBook phoneBook = new PhoneBook();
+        String name1 = "cvb";
+        String name2 = "dfgh";
+        String name3 = "bnmc";
+        phoneBook.add(name1, RandomStringUtils.randomNumeric(8));
+        phoneBook.add(name2, RandomStringUtils.randomNumeric(8));
+        phoneBook.add(name3, RandomStringUtils.randomNumeric(8));
+        phoneBook.printAllNames();
+
+        String result = outputStreamCaptor.toString();
+        String[] res = result.split("\r\n");
+        System.setOut(System.out);
+
+        assertThat(res[0]).isEqualTo(name3);
+        assertThat(res[1]).isEqualTo(name1);
+        assertThat(res[2]).isEqualTo(name2);
     }
 }
