@@ -1,6 +1,8 @@
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PhoneBookTest {
@@ -25,5 +27,17 @@ public class PhoneBookTest {
         int count1 = phoneBook.add(name, number1);
         int count2 = phoneBook.add(name, number2);
         assertThat(count1).isEqualTo(count2).isEqualTo(1);
+    }
+
+    @Test
+    public void findByNumber_success()
+    {
+        PhoneBook phoneBook = new PhoneBook();
+        String name = RandomStringUtils.random(5);
+        String number = RandomStringUtils.randomNumeric(8);
+        phoneBook.add(name, number);
+        List<String> byNumber = phoneBook.findByNumber(number);
+        assertThat(byNumber.size()).isEqualTo(1);
+        assertThat(byNumber.getFirst()).isEqualTo(name);
     }
 }
